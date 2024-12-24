@@ -1,39 +1,85 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { StatusBar } from 'expo-status-bar';
-import { useEffect } from 'react';
-import 'react-native-reanimated';
+import {
+  DarkTheme,
+  DefaultTheme,
+  ThemeProvider,
+} from '@react-navigation/native'
+import React, { PropsWithChildren, useState } from 'react'
+import 'react-native-reanimated'
+import {
+  Inter_300Light,
+  Inter_400Regular,
+  Inter_500Medium,
+  Inter_600SemiBold,
+  Inter_700Bold,
+  useFonts as useInterFonts,
+} from '@expo-google-fonts/inter'
 
-import { useColorScheme } from '@/hooks/useColorScheme';
+import { Provider } from 'react-redux'
+import { persistor, store } from '@/store'
+import {
+  Montserrat_300Light,
+  Montserrat_400Regular,
+  Montserrat_600SemiBold,
+  useFonts as useMontserratFonts,
+} from '@expo-google-fonts/montserrat'
+import {
+  Urbanist_400Regular,
+  useFonts as useUrbanistFonts,
+} from '@expo-google-fonts/urbanist'
+import { SafeAreaProvider } from 'react-native-safe-area-context'
+import { StatusBar, useColorScheme } from 'react-native'
+import SplashScreen from '@/app/SplashScreen'
+import { PersistGate } from 'redux-persist/integration/react'
+import { Stack } from 'expo-router'
 
-// Prevent the splash screen from auto-hiding before asset loading is complete.
-SplashScreen.preventAutoHideAsync();
+export default function RootLayout({ children }: PropsWithChildren) {
+  const colorScheme = useColorScheme()
+  const [interLoaded] = useInterFonts({
+    Inter_300Light,
+    Inter_400Regular,
+    Inter_500Medium,
+    Inter_600SemiBold,
+    Inter_700Bold,
+  })
 
-export default function RootLayout() {
-  const colorScheme = useColorScheme();
-  const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
-  });
+  const [montserratLoaded] = useMontserratFonts({
+    Montserrat_300Light,
+    Montserrat_400Regular,
+    Montserrat_600SemiBold,
+  })
 
-  useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync();
-    }
-  }, [loaded]);
+  const [urbanistLoaded] = useUrbanistFonts({
+    Urbanist_400Regular,
+  })
+  const [animationFinished, setAnimationFinished] = useState(false)
 
-  if (!loaded) {
-    return null;
+  if (
+    !interLoaded ||
+    !montserratLoaded ||
+    !urbanistLoaded ||
+    !animationFinished
+  ) {
+    return (
+      <SafeAreaProvider>
+        <StatusBar barStyle="dark-content" />
+        <SplashScreen onFinish={() => setAnimationFinished(true)} />
+      </SafeAreaProvider>
+    )
   }
 
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-      <StatusBar style="auto" />
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <SafeAreaProvider>
+            <Stack screenOptions={{ headerShown: false }}>
+              <Stack.Screen name="auth" />
+              <Stack.Screen name="(tabs)" />
+              <Stack.Screen name="+not-found" />
+            </Stack>
+          </SafeAreaProvider>
+        </PersistGate>
+      </Provider>
     </ThemeProvider>
-  );
+  )
 }
