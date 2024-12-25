@@ -27,4 +27,11 @@ export const Colors = {
   selecteduserAnswer: 'rgba(250, 179, 96, 0.2)',
   correctAnswer: 'rgba(88, 204, 2, 0.2)',
   wrongAnswer: 'rgba(255, 75, 76, 0.2)',
+  placeholder: `rgba(10, 10, 10, 0.80)`,
+  placeholder2: `rgba(10, 10, 10, 0.50)`,
+
+  isabelline: '#F1ECEC',
+  blue: '#042F6E80',
+  crayola: '#23A26D',
+  ghostWhite: '#F9F9F9',
 }

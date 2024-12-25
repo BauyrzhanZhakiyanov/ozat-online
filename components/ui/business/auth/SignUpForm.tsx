@@ -1,6 +1,6 @@
 import React from 'react'
 import { Platform, View } from 'react-native'
-import WhatsAppNumberScreen from '../../../../screens/WhatsAppNumberScreen'
+import WhatsAppNumberScreen from './WhatsAppNumberScreen'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 const SignUpForm = () => {

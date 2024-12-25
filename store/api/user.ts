@@ -5,6 +5,7 @@ import {
   RegisterRequest,
   RegisterResponse,
   SendCodeResponse,
+  UpdateUserRequest,
   VerifyCodeResponse,
 } from '@/types/api/auth'
 
@@ -14,14 +15,14 @@ const authApi = api.injectEndpoints({
   endpoints: (build) => ({
     login: build.mutation<LoginResponse, LoginRequest>({
       query: (body) => ({
-        url: `${prefix}/auth/login/`,
+        url: `${prefix}/auth/login`,
         method: 'POST',
         body,
       }),
     }),
     register: build.mutation<RegisterResponse, RegisterRequest>({
       query: (body) => ({
-        url: `${prefix}/user/public/register/`,
+        url: `${prefix}/user/public/register`,
         method: 'POST',
         body,
       }),
@@ -30,6 +31,13 @@ const authApi = api.injectEndpoints({
       query: () => ({
         url: `${prefix}/auth/logout`,
         method: 'POST',
+      }),
+    }),
+    updateUser: build.mutation<void, UpdateUserRequest>({
+      query: (body) => ({
+        url: `${prefix}/user/public/update`,
+        method: 'PUT',
+        body,
       }),
     }),
   }),
@@ -73,4 +81,5 @@ export const verifyConfirmationCode = async (
 
 export const { useSendCodeMutation, useVerifyCodeMutation } = authApi2
 
-export const { useLoginMutation, useRegisterMutation } = authApi
+export const { useLoginMutation, useRegisterMutation, useUpdateUserMutation } =
+  authApi

@@ -4,8 +4,10 @@ import {
   Text,
   TextInput,
   TextInputProps,
+  TextStyle,
   TouchableOpacity,
   View,
+  ViewStyle,
 } from 'react-native'
 import Icon from '@expo/vector-icons/MaterialCommunityIcons'
 import { TextInputMask } from 'react-native-masked-text'
@@ -16,23 +18,43 @@ interface CustomInputProps extends TextInputProps {
   label: string
   mask?: string
   error?: string
+  containerStyle?: ViewStyle
+  inputWrapperStyle?: ViewStyle
+  labelStyle?: TextStyle
 }
 
 const CustomInput = forwardRef<TextInput | TextInputMask, CustomInputProps>(
-  ({ label, mask, secureTextEntry, error, ...props }, ref) => {
+  (
+    {
+      label,
+      mask,
+      secureTextEntry,
+      error,
+      containerStyle,
+      inputWrapperStyle,
+      labelStyle,
+      style,
+      ...props
+    },
+    ref,
+  ) => {
     const [isSecure, setIsSecure] = useState(secureTextEntry)
 
     return (
-      <View style={styles.container}>
-        <Text style={[styles.label, { ...Fonts.Regular18 }]}>{label}</Text>
+      <View style={[styles.container, containerStyle]}>
+        <Text style={[styles.label, { ...Fonts.Regular18 }, labelStyle]}>
+          {label}
+        </Text>
         <View
           style={[
             styles.inputContainer,
+            inputWrapperStyle,
             error ? styles.inputContainerError : null,
           ]}
         >
           {mask ? (
             <TextInputMask
+              {...props}
               ref={ref as Ref<TextInputMask>}
               type={'custom'}
               options={{
@@ -41,10 +63,10 @@ const CustomInput = forwardRef<TextInput | TextInputMask, CustomInputProps>(
               style={[
                 { ...Fonts.Regular18 },
                 styles.input,
+                style,
                 error ? styles.inputError : null,
               ]}
               secureTextEntry={isSecure}
-              {...props}
             />
           ) : (
             <TextInput
@@ -98,7 +120,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderWidth: 1,
     borderColor: Colors.gray,
-    borderRadius: 5,
+    borderRadius: 10,
   },
   inputContainerError: {
     borderColor: 'red',

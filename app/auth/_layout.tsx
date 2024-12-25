@@ -9,8 +9,8 @@ const Auth = () => {
       }}
     >
       <Stack.Screen name="index" />
-      <Stack.Screen name="CodeVerification" />
-      <Stack.Screen name="Registration" />
+      <Stack.Screen name="code-verification" />
+      <Stack.Screen name="register" />
     </Stack>
   )
 }

@@ -48,7 +48,7 @@ const WhatsAppNumberScreen = () => {
       setDefaultWhatsAppNumber(data.whatsappNumber)
       setWhatsAppNumber(mobile)
       // await sendConfirmationCode({ mobile }).unwrap()
-      navigation.navigate('/auth/CodeVerification')
+      navigation.navigate('/auth/code-verification')
     } catch (error) {
       console.error('Error sending confirmation code:', error)
     } finally {

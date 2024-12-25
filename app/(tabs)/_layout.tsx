@@ -6,8 +6,9 @@ import MessageIcon from '@/assets/icons/MessageIcon'
 import HomeIcon from '@/assets/icons/HomeIcon'
 import ProfileIcon from '@/assets/icons/ProfileIcon'
 import { Colors } from '@/constants/colors'
+import { BottomTabNavigationOptions } from '@react-navigation/bottom-tabs'
 
-const screenOptions = {
+const screenOptions: BottomTabNavigationOptions = {
   headerShown: false,
   tabBarStyle: {
     backgroundColor: Colors.white,
@@ -22,6 +23,8 @@ const screenOptions = {
   tabBarItemStyle: {
     marginVertical: 20,
   },
+  tabBarActiveTintColor: Colors.primary, // Цвет активной вкладки
+  tabBarInactiveTintColor: Colors.blue, // Цвет неактивной вкладки
 }
 
 export default function TabLayout() {
@@ -30,29 +33,34 @@ export default function TabLayout() {
       <Tabs.Screen
         name="home"
         options={{
-          tabBarIcon: () => <HomeIcon />,
+          title: '',
+          tabBarIcon: ({ color }) => <HomeIcon color={color} />,
         }}
       />
       <Tabs.Screen
         name="task"
         options={{
           title: '',
-          tabBarIcon: () => <TaskIcon />,
+          tabBarIcon: ({ color }) => <TaskIcon color={color} />,
         }}
       />
       <Tabs.Screen
         name="messages"
         options={{
           title: '',
-          tabBarIcon: () => <MessageIcon />,
+          tabBarIcon: ({ color }) => <MessageIcon color={color} />,
         }}
       />
       <Tabs.Screen
-        name="Profile"
+        name="profile"
         options={{
           title: '',
-          tabBarIcon: () => <ProfileIcon />,
+          tabBarIcon: ({ color }) => <ProfileIcon color={color} />,
         }}
+      />
+      <Tabs.Screen
+        name={'index'}
+        options={{ tabBarItemStyle: { display: 'none' } }}
       />
     </Tabs>
   )

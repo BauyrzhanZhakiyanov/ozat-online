@@ -5,11 +5,16 @@ export interface IUser {
   name: string
   surname: string
   phone: string
-  email: string
   parentPhone: string
+  extraPhone: string
+  email: string
+  parentEmail: string
   level: string
   balance: number
+  bonuses: number
   roles: string
+  patronymic: string
+  avatar: string
 }
 interface AuthState {
   user: IUser | null
@@ -31,11 +36,10 @@ const authSlice = createSlice({
       state.user = action.payload
     },
     updateUserAction(state, action: PayloadAction<Partial<IUser>>) {
-      if (state.user) {
-        state.user = {
-          ...state.user,
-          ...action.payload,
-        }
+      // @ts-ignore
+      state.user = {
+        ...state.user,
+        ...action.payload,
       }
     },
     setToken(

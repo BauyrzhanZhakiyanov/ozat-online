@@ -8,13 +8,13 @@ const Home = () => {
         headerShown: false,
       }}
     >
-      <Stack.Screen name="MyCourses" />
-      <Stack.Screen name="CourseDetails" />
-      <Stack.Screen name="Lesson" />
-      <Stack.Screen name="FileViewer" />
-      <Stack.Screen name="TestView" />
-      <Stack.Screen name="ResultTestView" />
-      <Stack.Screen name="ShowResults" />
+      <Stack.Screen name="my-courses" />
+      <Stack.Screen name="course-details" />
+      <Stack.Screen name="lesson" />
+      <Stack.Screen name="file-viewer" />
+      <Stack.Screen name="test-view" />
+      <Stack.Screen name="result-test-view" />
+      <Stack.Screen name="show-results" />
     </Stack>
   )
 }

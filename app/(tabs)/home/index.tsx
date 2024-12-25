@@ -1,4 +1,4 @@
-import { useRouter } from 'expo-router'
+import { Redirect, useRouter } from 'expo-router'
 import React, { useState } from 'react'
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import { Searchbar, useTheme } from 'react-native-paper'
@@ -10,7 +10,7 @@ import AchievementCarousel from '@/components/ui/business/user/AchievementCarous
 import ToucheAbleCard from '@/components/ui/card/ToucheAbleCard'
 import { Fonts } from '@/constants'
 import { useAppSelector } from '@/store'
-import { selectUser } from '@/store/selectors/auth'
+import { selectUser, selectUserNull } from '@/store/selectors/auth'
 
 const profileImg = require('@/assets/images/business/etc/ProfileImage.png')
 const planImg = require('@/assets/images/business/mainscreen/personalplan.png')

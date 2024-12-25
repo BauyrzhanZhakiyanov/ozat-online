@@ -47,6 +47,12 @@ export const Spacing = {
   mr8: 8,
 }
 
+export const Shadows = {
+  s10: {
+    boxShadow: `0 0 10 1 rgba(0, 0, 0, 0.3)`,
+  },
+}
+
 export const Fonts = StyleSheet.create({
   Inter_300Light: {
     fontFamily: 'Inter_300Light',

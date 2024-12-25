@@ -1,3 +1,5 @@
+import { IUser } from '@/store/slices/auth'
+
 export interface LoginRequest {
   mobile: string
   password: string
@@ -47,3 +49,18 @@ export interface VerifyCodeResponse {
   statusCode: number
   message: string
 }
+
+export type UpdateUserRequest = Partial<
+  Pick<
+    IUser,
+    | 'name'
+    | 'surname'
+    | 'patronymic'
+    | 'email'
+    | 'parentEmail'
+    | 'phone'
+    | 'parentPhone'
+    | 'extraPhone'
+    | 'level'
+  >
+>

@@ -12,12 +12,13 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { useRouter } from 'expo-router'
 import { useLoginMutation } from '@/store/api/user'
 import { cleanMobileNumber } from '@/utils/auth'
-import { useAppDispatch } from '@/store'
-import { setToken, updateUserAction } from '@/store/slices/auth'
+import { useAppDispatch, useAppSelector } from '@/store'
+import { setToken, setUserAction } from '@/store/slices/auth'
 import CustomInput from '@/components/ui/input/Input'
 import CustomButton from '@/components/ui/button/Button'
 import { Colors } from '@/constants/colors'
 import { Fonts } from '@/constants'
+import { selectUserNull } from '@/store/selectors/auth'
 
 interface FormData {
   phone: string
@@ -25,6 +26,8 @@ interface FormData {
 }
 
 const SignInForm = () => {
+  const user = useAppSelector(selectUserNull)
+  console.log(user)
   const dispatch = useAppDispatch()
   const [login] = useLoginMutation()
   const navigation = useRouter()
@@ -80,14 +83,19 @@ const SignInForm = () => {
           }),
         )
         dispatch(
-          updateUserAction({
+          setUserAction({
             name: firstName,
             surname: lastName,
             phone,
             id: userId,
+            email: '',
+            balance: 0,
+            level: '',
+            parentPhone: '',
+            roles: '',
           }),
         )
-        navigation.replace('/(tabs)')
+        navigation.replace('/(tabs)/home')
       } else {
         console.log('Failed to login:', response)
         Alert.alert('Error', 'Failed to login')
@@ -143,7 +151,7 @@ const SignInForm = () => {
         />
 
         <TouchableOpacity
-          onPress={() => navigation.navigate('/auth/_components/SignInForm')}
+          onPress={() => navigation.navigate('/auth/reset-password')}
         >
           <Text style={styles.forgotPassword}>Құпия сөзді ұмыттым?</Text>
         </TouchableOpacity>

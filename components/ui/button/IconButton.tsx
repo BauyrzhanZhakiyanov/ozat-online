@@ -1,6 +1,7 @@
 import React, { ReactNode } from 'react'
 import {
   ImageStyle,
+  StyleProp,
   StyleSheet,
   TextStyle,
   TouchableOpacity,
@@ -20,7 +21,7 @@ type B = {
 }
 type Props = (A | B) & {
   onClick: () => void
-  style?: ViewStyle
+  style?: StyleProp<ViewStyle>
   iconSize?: number
   iconColor?: string
   iconWidth?: number

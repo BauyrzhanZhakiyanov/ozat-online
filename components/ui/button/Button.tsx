@@ -1,26 +1,29 @@
 import React from 'react'
 import {
+  StyleProp,
   StyleSheet,
   Text,
   TextStyle,
   TouchableOpacity,
+  TouchableOpacityProps,
   ViewStyle,
 } from 'react-native'
 import { BorderRadii, Fonts } from '@/constants'
 import { Colors } from '@/constants/colors'
 
-interface Props {
+interface Props extends TouchableOpacityProps {
   title: string
   onPress: () => void
-  style?: ViewStyle
+  style?: StyleProp<ViewStyle>
   textStyle?: TextStyle
   disabled?: boolean
 }
 
 const CustomButton = (props: Props) => {
-  const { title, onPress, style, textStyle, disabled } = props
+  const { title, onPress, style, textStyle, disabled, ...args } = props
   return (
     <TouchableOpacity
+      {...args}
       style={[styles.button, disabled ? styles.disabledButton : null, style]}
       onPress={!disabled ? onPress : undefined}
       activeOpacity={disabled ? 1 : 0.7}

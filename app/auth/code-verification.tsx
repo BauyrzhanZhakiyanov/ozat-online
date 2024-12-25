@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import {
   Animated,
-  KeyboardAvoidingView,
   Platform,
   StyleSheet,
   Text,
@@ -110,7 +109,7 @@ const CodeVerification = () => {
         ])
         clearInterval(intervalRef.current)
         setTimeout(() => {
-          navigation.navigate('/auth/Registration')
+          navigation.navigate('/auth/register')
         }, 500)
         setOtpCodeError(null)
       } else {

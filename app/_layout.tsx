@@ -31,6 +31,7 @@ import { StatusBar, useColorScheme } from 'react-native'
 import SplashScreen from '@/app/SplashScreen'
 import { PersistGate } from 'redux-persist/integration/react'
 import { Stack } from 'expo-router'
+import { useFonts } from 'expo-font'
 
 export default function RootLayout({ children }: PropsWithChildren) {
   const colorScheme = useColorScheme()
@@ -51,9 +52,17 @@ export default function RootLayout({ children }: PropsWithChildren) {
   const [urbanistLoaded] = useUrbanistFonts({
     Urbanist_400Regular,
   })
+
+  const [loaded] = useFonts({
+    Inter: require('@/assets/fonts/Inter_18pt-Regular.ttf'),
+    'Inter-Medium': require('@/assets/fonts/Inter_18pt-Medium.ttf'),
+    'Inter-SemiBold': require('@/assets/fonts/Inter_18pt-SemiBold.ttf'),
+    'Inter-Bold': require('@/assets/fonts/Inter_18pt-Bold.ttf'),
+  })
   const [animationFinished, setAnimationFinished] = useState(false)
 
   if (
+    !loaded ||
     !interLoaded ||
     !montserratLoaded ||
     !urbanistLoaded ||

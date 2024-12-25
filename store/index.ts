@@ -3,6 +3,7 @@ import { createMigrate, persistReducer, persistStore } from 'redux-persist'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { combineReducers } from 'redux'
 import { configureStore } from '@reduxjs/toolkit'
+import { createLogger } from 'redux-logger'
 import {
   FLUSH,
   PAUSE,
@@ -15,12 +16,18 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 import authReducer from './slices/auth'
 import { api, mobileApi } from '@/store/api'
 
+const logger = createLogger({
+  collapsed: true, // Свернутые логи для улучшения читаемости
+  predicate: (_, action) => action.type.startsWith(api.reducerPath),
+})
+
 const blacklist: string[] = []
 const persistConfig = {
   key: 'root',
   version: persistVersion,
   storage: AsyncStorage,
   blacklist,
+  whitelist: ['auth'],
   migrate: createMigrate(migrations, { debug: false }),
 }
 
@@ -39,7 +46,7 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }).concat(api.middleware, mobileApi.middleware),
+    }).concat(api.middleware, mobileApi.middleware, logger),
 })
 
 export const persistor = persistStore(store)

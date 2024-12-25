@@ -16,12 +16,12 @@ import { useRegisterMutation } from '@/store/api/user'
 import { useAppDispatch } from '@/store'
 import { setToken, updateUserAction } from '@/store/slices/auth'
 import { Colors } from '@/constants/colors'
-import IconButton from '@/components/ui/button/IconButton'
 import CustomImage from '@/components/ui/image/Image'
 import CustomText from '@/components/ui/common/Text'
 import CustomInput from '@/components/ui/input/Input'
 import { Fonts } from '@/constants'
 import CustomButton from '@/components/ui/button/Button'
+import BackIconButton from '@/components/ui/button/BackIconButton'
 
 const logoImg = require('@/assets/images/business/logo/logoLogin.png')
 
@@ -33,7 +33,7 @@ interface FormData {
   termsAccepted: boolean
 }
 
-const Registration = () => {
+const Register = () => {
   const navigation = useRouter()
   const [register] = useRegisterMutation()
   const dispatch = useAppDispatch()
@@ -83,14 +83,14 @@ const Registration = () => {
         navigation.navigate('/(tabs)')
       }
     } catch (error) {
-      console.error('Registration failed:', error)
+      console.error('Register failed:', error)
     }
   }
 
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-      style={{ flex: 1, backgroundColor: Colors.secondary }}
+      style={{ flex: 1, backgroundColor: Colors.white }}
     >
       <KeyboardAwareScrollView
         contentContainerStyle={styles.scrollViewContainer}
@@ -98,16 +98,7 @@ const Registration = () => {
       >
         <View style={styles.innerContainer}>
           <View style={styles.topNav}>
-            <View style={styles.backButton}>
-              <IconButton
-                iconName="chevron-left"
-                onClick={() => {
-                  navigation.back()
-                }}
-                iconSize={15}
-                iconColor="black"
-              />
-            </View>
+            <BackIconButton style={styles.backButton} />
             <CustomImage imagePath={logoImg} style={styles.customImage} />
           </View>
           <CustomText style={styles.registrationTitleText}>Тіркелу</CustomText>
@@ -271,15 +262,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   backButton: {
-    width: 39,
-    height: 39,
     marginTop: 50,
     marginLeft: 20,
     marginBottom: 60,
-    borderWidth: 1,
-    padding: 10,
-    borderRadius: 10,
-    borderColor: Colors.gray,
   },
   registrationTitleText: {
     marginLeft: 25,
@@ -328,4 +313,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default Registration
+export default Register

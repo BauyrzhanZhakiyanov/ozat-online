@@ -12,6 +12,7 @@ import { Colors } from '@/constants/colors'
 import { Fonts } from '@/constants'
 import AttemptTestComponent from '@/components/ui/business/test/AttemptTestComponent'
 import BackBar from '@/components/ui/header/BackBar'
+import { useTestStore } from '@/storage/testStorage/useTestStore'
 
 const ResultTestView = () => {
   const navigation = useRouter()
